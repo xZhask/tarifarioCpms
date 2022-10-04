@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +13,14 @@
 </head>
 
 <body>
+    <div class="preloader">
+        <div class="cont-img">
+            <img src="resources/img/_EscudoSanidad.png" alt="">
+            <img src="resources/img/_EscudoPNP.png" alt="">
+        </div>
+        <div class="circle-load"></div>
+        <p>Cargando...</p>
+    </div>
     <div class="wrapper">
         <header>
             <div class="cont-inputsearch">
@@ -21,7 +30,7 @@
             </div>
             <div class="cont-info-tarifario">
                 <h2>Tarifario Actual Dirsapol: Acta 26</h2>
-                <img src="resources/img/dirsapol.png" alt="">
+                <img src="resources/img/_EscudoSanidad.png" alt="">
             </div>
         </header>
         <div class="section">
@@ -51,4 +60,5 @@
 <script language="javascript" src="resources/js/jquery-3.6.0.min.js"></script>
 <script language="javascript" src="resources/js/jquery-ui-1.13.1/jquery-ui.min.js"></script>
 <script language="javascript" src="resources/js/functions.js"></script>
+
 </html>

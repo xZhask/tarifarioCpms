@@ -146,10 +146,10 @@ input,.cont-search a{
 }
 .cont-table::-webkit-scrollbar {
     width: 5px !important;
-    background-color: #26A69A;;
+    background-color: var(--primary-color);;
   }
 .cont-table::-webkit-scrollbar-thumb {
-    background-color: #26A69A;;
+    background-color: var(--primary-color);;
     border-radius: 10px;
 }
 .cont-info-tarifario{
@@ -196,10 +196,10 @@ input,.cont-search a{
     }
     .cont-table::-webkit-scrollbar {
         width: 5px !important;
-        background-color: #26A69A;
+        background-color: var(--primary-color);
       }
     .cont-table::-webkit-scrollbar-thumb {
-        background-color: #26A69A;
+        background-color: var(--primary-color);
         border-radius: 10px;
     }
     .cont-info-tarifario img{
@@ -218,4 +218,73 @@ input,.cont-search a{
 }
 .ui-menu-item{
     padding: 5px 2px !important;
+}
+.preloader{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgb(77,182,172);
+background: radial-gradient(circle, rgba(77,182,172,1) 0%, rgba(50,103,98,1) 100%);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column;
+    transition: all 1.5s;
+    -webkit-transition: all 1.5s;
+    -moz-transition: all 1.5s;
+    -ms-transition: all 1.5s;
+    -o-transition: all 1.5s;
+}
+.preloader .cont-img{
+    display: flex;
+    gap: 2em;
+    
+}
+.preloader img{
+    height: 200px;
+}
+.circle-load,.circle-load::before,.circle-load::after{
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    animation: loader 1.2s infinite ease-in-out;
+    -webkit-animation: loader 1.2s infinite ease-in-out;
+}
+.circle-load{
+    color: var(--light);
+    font-size: 10px;
+    position: relative;
+    animation-delay: -0.16s;
+}
+.circle-load::before,.circle-load::after{
+    content: '';
+    position: absolute;
+    top: 0;
+}
+.circle-load::before{
+    left: -3.5em;
+    animation-delay: -0.32s;
+}
+.circle-load::after{
+    left: 3.5em;
+}
+.preloader p{
+    line-height: 80px;
+    color: rgba(255,255,255,.5);
+}
+@keyframes loader{
+    0%,80%,100%{
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40%{
+        box-shadow: 0 2.5em 0 0;
+    }
 }
