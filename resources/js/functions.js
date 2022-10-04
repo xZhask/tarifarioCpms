@@ -1,21 +1,18 @@
-/* window.addEventListener('load', () => {
+window.addEventListener('load', () => {
 	const contLoader = document.querySelector('.preloader');
 	contLoader.style.opacity = 0;
 	contLoader.style.visibility = 'hidden';
-}); */
-const listadoUnidades = ListarUnidades();
+});
+const listadoUnidades = JSON.parse(ajaxFunction({ accion: 'LISTAR_UNIDADES' }));
 const nombreUnidades = listadoUnidades.map((unidad) => unidad.ipress);
 let nivel;
-function ListarUnidades() {
+function ajaxFunction(data) {
 	let resultado;
 	$.ajax({
 		type: 'POST',
 		url: 'App/controller/controller.php',
-		data: {
-			accion: 'LISTAR_UNIDADES'
-		},
+		data: data,
 		async: false,
-		dataType: 'JSON',
 		error: function() {
 			alert('Error occured');
 		},
@@ -25,7 +22,6 @@ function ListarUnidades() {
 	});
 	return resultado;
 }
-
 $(document).ready(function() {
 	$('#ipress').autocomplete({
 		source: nombreUnidades,
@@ -35,36 +31,20 @@ $(document).ready(function() {
 			nivel = listadoUnidades[position].nivel;
 			console.log(nivel);
 			$('#procedimiento').val('');
-			$.ajax({
-				method: 'POST',
-				url: 'App/controller/controller.php',
-				data: {
-					accion: 'LISTAR_TARIFARIO',
-					nvlipress: nivel
-				}
-			}).done(function(respuesta) {
-				$('#tbcpt').html(respuesta);
-				$('.bg-dark').css('display', 'none');
-				document.getElementById('ipress').blur();
-				$('#btnExcel').prop('href', `resources/libraries/Excel/tarifario.php?nvl=${nivel}`);
-			});
+			let rptaAjax = ajaxFunction({ accion: 'LISTAR_TARIFARIO', nvlipress: nivel });
+			$('#tbcpt').html(rptaAjax);
+			$('.bg-dark').css('display', 'none');
+			document.getElementById('ipress').blur();
+			$('#btnExcel').prop('href', `resources/libraries/Excel/tarifario.php?nvl=${nivel}`);
 		}
 	});
 });
 
 function FiltrarProcedimientos() {
 	let filtro = $('#procedimiento').val();
-	$.ajax({
-		method: 'POST',
-		url: 'App/controller/controller.php',
-		data: {
-			accion: 'FILTRAR_PROCEDIMIENTO',
-			filtro: filtro,
-			nvlipress: nivel
-		}
-	}).done(function(respuesta) {
-		$('#tbcpt').html(respuesta);
-	});
+	let data = { accion: 'FILTRAR_PROCEDIMIENTO', filtro: filtro, nvlipress: nivel };
+	let rptaAjax = ajaxFunction(data);
+	$('#tbcpt').html(rptaAjax);
 }
 const txtProcedimiento = document.querySelector('#procedimiento');
 txtProcedimiento.addEventListener('keyup', FiltrarProcedimientos);
@@ -77,7 +57,6 @@ $(window).scroll(function() {
 
 function posicionarBuscador() {
 	var alturaHeader = $('header').outerHeight(true);
-
 	if ($(window).scrollTop() >= alturaHeader) {
 		$('.cont-search').addClass('fixed');
 		$('.cont-table').css('margin-top', '135px');

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="resources/js/jquery-ui-1.13.1/jquery-ui.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
     <link rel="icon" type="image/png" href="resources/img/icontarifario.png" />
-    <title>Tarifario | Procedimientos</title>
+    <title>Tarifario 26 | CPMS</title>
 </head>
 
 <body>

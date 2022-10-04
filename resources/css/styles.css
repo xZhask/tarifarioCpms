@@ -6,8 +6,8 @@
     font-family: 'Roboto Flex', sans-serif;
 }
 :root{
-    --secondary-color :#26A69A;
-    --primary-color: #4DB6AC;
+    --secondary-color :#0ba360;
+    --primary-color: #3cba92;
     --inactive-color:#B2DFDB;
     --light:#f5f6fa;
     --gray: #CFD8DC;
@@ -22,7 +22,8 @@ a{
 }
 header{
     height: 100px;
-    background-color: var(--primary-color);
+    background: rgb(77,182,172);
+    background: linear-gradient(155deg, #3cba92 0%, #0ba360 100%);
     color: var(--light);
     justify-content: space-between;
     padding: 0 5em;
@@ -225,8 +226,8 @@ input,.cont-search a{
     left: 0;
     bottom: 0;
     right: 0;
-    background: rgb(77,182,172);
-background: radial-gradient(circle, rgba(77,182,172,1) 0%, rgba(50,103,98,1) 100%);
+    background: var(--primary-color);
+    background: radial-gradient(circle, var(--primary-color) 0%, var(--secondary-color) 100%);
     z-index: 5;
     display: flex;
     align-items: center;
