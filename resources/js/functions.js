@@ -1,29 +1,84 @@
+const listadoUnidades = ListarUnidades();
+const nombreUnidades =  listadoUnidades.map(unidad=>unidad.ipress);
+let nivel;
+function ListarUnidades() {
+	let resultado;
+    $.ajax({
+        type: "POST",
+        url: 'App/controller/controller.php',
+        data: {
+            accion: 'LISTAR_UNIDADES',
+        },
+        async: false,
+		dataType: 'JSON',
+        error: function() {
+            alert("Error occured")
+        },
+		success:function(respuesta) {
+            resultado = respuesta;
+        },
+    });
+	return resultado;
+}
+
+$(document).ready(function() {
+	$("#ipress").autocomplete({
+		source: nombreUnidades,
+		select: function(event, item) {
+			let unidad = item.item.value;
+			let position = nombreUnidades.indexOf(unidad);
+			nivel = listadoUnidades[position].nivel;
+			console.log(nivel);
+			$('#procedimiento').val('')
+			$.ajax({
+				method: 'POST',
+				url: 'App/controller/controller.php',
+				data: {
+					accion: 'LISTAR_TARIFARIO',
+					nvlipress: nivel
+				}
+			}).done(function(respuesta) {
+				$('#tbcpt').html(respuesta);
+				$('.bg-dark').css('display', 'none')
+				document.getElementById('ipress').blur();
+				$('#btnExcel').prop('href', `resources/libraries/Excel/tarifario.php?nvl=${nivel}`);
+			});
+		}
+	});
+});
+
 function FiltrarProcedimientos() {
-	filtro = $('#procedimiento').val();
-	nvlipress = $('#nivelipress').val();
+	let filtro = $('#procedimiento').val();
 	$.ajax({
 		method: 'POST',
 		url: 'App/controller/controller.php',
 		data: {
 			accion: 'FILTRAR_PROCEDIMIENTO',
 			filtro: filtro,
-			nvlipress: nvlipress
+			nvlipress: nivel
 		}
 	}).done(function(respuesta) {
 		$('#tbcpt').html(respuesta);
 	});
 }
-function mostrarNivel(ipress) {
-	if (ipress === 'HOSPITAL NACIONAL PNP GRAL PNP LUIS N. SAENZ') nvl = 'nvl3';
-	else if (
-		ipress === 'HOSPITAL PNP "AUGUSTO B. LEGUIA"' ||
-		ipress === 'HOSPITAL GERIATRICO PNP SAN JOSE' ||
-		ipress === 'HOSPITAL REGIONAL POLICIAL CHICLAYO' ||
-		ipress === 'HOSPITAL REGIONAL POLICIAL AREQUIPA'
-	)
-		nvl = 'nvl2';
-	else nvl = 'nvl1';
-	$('#nivelipress').val(nvl);
-	$('#btnExcel').prop('href', 'resources/libraries/Excel/tarifario.php?nvl=' + nvl);
-	return nvl;
+const txtProcedimiento = document.querySelector('#procedimiento');
+txtProcedimiento.addEventListener('keyup',FiltrarProcedimientos);
+
+
+posicionarBuscador();
+
+$(window).scroll(function() {
+	posicionarBuscador();
+});
+
+function posicionarBuscador() {
+	var alturaHeader = $('header').outerHeight(true);
+
+	if ($(window).scrollTop() >= alturaHeader) {
+		$('.cont-search').addClass('fixed');
+		$('.cont-table').css('margin-top', '135px');
+	} else {
+		$('.cont-search').removeClass('fixed');
+		$('.cont-table').css('margin-top', '0');
+	}
 }

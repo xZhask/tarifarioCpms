@@ -39,6 +39,12 @@ header input{
     border: 1px solid rgba(0, 0, 0, .1);
     padding:  1.5em ;
     justify-content: space-between;
+    background-color : #fff;
+    transition: all ease .4s;
+    -webkit-transition: all ease .4s;
+    -moz-transition: all ease .4s;
+    -ms-transition: all ease .4s;
+    -o-transition: all ease .4s;
 }
 .section .cont-table{
     margin-top: 1em;
@@ -133,4 +139,83 @@ input,.cont-search a{
     height: calc(100vh - 100px);
     left: 0;
     width: 100%;
+}
+.cont-table{
+    overflow: auto;
+    width: 100%;
+}
+.cont-table::-webkit-scrollbar {
+    width: 5px !important;
+    background-color: #26A69A;;
+  }
+.cont-table::-webkit-scrollbar-thumb {
+    background-color: #26A69A;;
+    border-radius: 10px;
+}
+.cont-info-tarifario{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.cont-info-tarifario img{
+    height: 80px;
+}
+@media screen and (max-width: 1280px) {
+    header{
+        flex-direction: column;
+        padding: 1em;
+        align-items: flex-end;
+    }
+    header h2{
+        font-size: 1em;
+    }
+    header input{
+        font-size: .9em;
+    }
+    .cont-inputsearch{
+        width: 80%;
+    }
+    .cont-inputsearch i {
+        right: 1em;
+    }
+    .cont-search{
+        flex-direction: column-reverse;
+        align-items: flex-end;
+        gap: 1em;
+        padding: 1em;
+    }
+    .cont-search a{
+        font-size: .8em;
+    }
+    .section {
+        padding: 2em 1em;
+    }
+    .cont-table{
+        overflow: auto;
+        width: 100%;
+    }
+    .cont-table::-webkit-scrollbar {
+        width: 5px !important;
+        background-color: #26A69A;
+      }
+    .cont-table::-webkit-scrollbar-thumb {
+        background-color: #26A69A;
+        border-radius: 10px;
+    }
+    .cont-info-tarifario img{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+}
+.fixed{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255,255,255,.6) !important;
+    backdrop-filter: blur(5px) ;
+}
+.ui-menu-item{
+    padding: 5px 2px !important;
 }

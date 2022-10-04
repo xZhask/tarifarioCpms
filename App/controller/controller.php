@@ -1,5 +1,6 @@
 <?php
 require_once '../models/ClsCpt.php';
+require_once '../models/ClsIpress.php';
 
 $accion = $_POST['accion'];
 controller($accion);
@@ -7,11 +8,17 @@ controller($accion);
 function controller($accion)
 {
     $objProcedimiento = new ClsProcedimiento();
+    $objIpress = new ClsIpress();
 
     switch ($accion) {
+        case 'LISTAR_UNIDADES':
+            $listadoUnidades = $objIpress->ListarIpress();
+            $listadoUnidades = $listadoUnidades->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($listadoUnidades);
+            break;
         case 'LISTAR_TARIFARIO':
             $nvl = $_POST['nvlipress'];
-            $procedimientos = $objProcedimiento->FiltrarTarifario($nvl);
+            $procedimientos = $objProcedimiento->FiltrarTarifario("nvl$nvl");
             $procedimientos = $procedimientos->fetchAll(PDO::FETCH_OBJ);
             $tabla = '';
             $id = 1;
@@ -29,7 +36,7 @@ function controller($accion)
         case 'FILTRAR_PROCEDIMIENTO':
             $nvl = $_POST['nvlipress'];
             $filtro = $_POST['filtro'];
-            $procedimientos = $objProcedimiento->FiltrarProcedimiento($filtro, $nvl);
+            $procedimientos = $objProcedimiento->FiltrarProcedimiento($filtro, "nvl$nvl");
             $procedimientos = $procedimientos->fetchAll(PDO::FETCH_OBJ);
 
             $tabla = '';

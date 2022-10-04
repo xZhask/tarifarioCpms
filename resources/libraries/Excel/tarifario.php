@@ -13,18 +13,13 @@ $objProcedimiento = new ClsProcedimiento();
 
 $nvl = $_GET['nvl'];
 
-if ($nvl === 'nvl3') $nro = 'I';
-else if ($nvl === 'nvl2') $nro = 'II';
-else $nro = 'III';
+$nro = $nvl == '3' ? 'III' : ($nvl == '2' ? 'II' : 'I');
 
 $descargas = $objProcedimiento->CantidadDescargas();
 $descargas = $descargas->fetch(PDO::FETCH_NAMED);
 $descargas = $descargas['cantidad'];
 $descargas++;
 $fecha = date('Y/m/d');
-
-echo $descargas . '-';
-echo $fecha;
 
 $objProcedimiento->ActualizarDescargas($descargas, $fecha);
 
@@ -88,7 +83,7 @@ $sheet->setCellValue('D2', 'PRECIO');
 
 $filaExcel = 3;
 
-$procedimientos = $objProcedimiento->FiltrarTarifario($nvl);
+$procedimientos = $objProcedimiento->FiltrarTarifario("nvl$nvl");
 $procedimientos = $procedimientos->fetchAll(PDO::FETCH_OBJ);
 $id = 1;
 foreach ($procedimientos as $procedimiento) {

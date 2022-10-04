@@ -11,7 +11,7 @@ class ClsProcedimiento
     }
     function FiltrarProcedimiento($filtro, $nvl)
     {
-        $sql = "select * from cpt where descripcion iLIKE :filtro and " . $nvl . "='SI'";
+        $sql = "SELECT * FROM cpt WHERE CONCAT(codigocpt,descripcion) LIKE :filtro AND " . $nvl . "='SI'";
         global $cnx;
         $parametros = [
             ':filtro' => '%' . $filtro . '%'
