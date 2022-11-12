@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
 });
 const listadoUnidades = JSON.parse(ajaxFunction({ accion: 'LISTAR_UNIDADES' }));
 const nombreUnidades = listadoUnidades.map((unidad) => unidad.ipress);
-let nivel;
+let nivel='';
 function ajaxFunction(data) {
 	let resultado;
 	$.ajax({
@@ -13,25 +13,20 @@ function ajaxFunction(data) {
 		url: 'App/controller/controller.php',
 		data: data,
 		async: false,
-		error: function() {
-			alert('Error occured');
-		},
-		success: function(respuesta) {
-			resultado = respuesta;
-		}
+		error: ()=> {alert('Error occured');},
+		success: (respuesta)=>{resultado = respuesta;}
 	});
 	return resultado;
 }
 $(document).ready(function() {
 	$('#ipress').autocomplete({
 		source: nombreUnidades,
-		select: function(event, item) {
+		select: (event, item)=> {
 			let unidad = item.item.value;
 			let position = nombreUnidades.indexOf(unidad);
 			nivel = listadoUnidades[position].nivel;
-			console.log(nivel);
 			$('#procedimiento').val('');
-			let rptaAjax = ajaxFunction({ accion: 'LISTAR_TARIFARIO', nvlipress: nivel });
+			let rptaAjax = ajaxFunction({ accion: 'LISTAR_TARIFARIO',filtro:'', nvlipress: nivel });
 			$('#tbcpt').html(rptaAjax);
 			$('.bg-dark').css('display', 'none');
 			document.getElementById('ipress').blur();
@@ -42,12 +37,12 @@ $(document).ready(function() {
 
 function FiltrarProcedimientos() {
 	let filtro = $('#procedimiento').val();
-	let data = { accion: 'FILTRAR_PROCEDIMIENTO', filtro: filtro, nvlipress: nivel };
+	let data = { accion: 'LISTAR_TARIFARIO', filtro: filtro, nvlipress: nivel };
 	let rptaAjax = ajaxFunction(data);
 	$('#tbcpt').html(rptaAjax);
 }
 const txtProcedimiento = document.querySelector('#procedimiento');
-txtProcedimiento.addEventListener('keyup', FiltrarProcedimientos);
+txtProcedimiento.addEventListener('keyup', FiltrarProcedimientos());
 
 posicionarBuscador();
 

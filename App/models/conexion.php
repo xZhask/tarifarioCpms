@@ -4,7 +4,7 @@ try {
     $servidor = 'localhost';
     $usuario = 'root';
     $pass = 'mysql';
-    $db = 'dbcpms';
+    $db = 'magusa_cpms';
     /*$usuario = 'magusa_dirsapol';
     $pass = '@hMI#~E2**-^';
     $db = 'magusa_cpms';*/

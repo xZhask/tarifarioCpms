@@ -8,15 +8,17 @@
     <script src="https://kit.fontawesome.com/47b4aaa3bf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="resources/js/jquery-ui-1.13.1/jquery-ui.min.css">
     <link rel="stylesheet" href="resources/css/styles.css">
-    <link rel="icon" type="image/png" href="resources/img/icontarifario.png" />
+    <link rel="icon" type="image/png" href="resources/img/calendarioPrecios.png" />
     <title>Tarifario 26 | CPMS</title>
 </head>
 
 <body>
     <div class="preloader">
         <div class="cont-img">
-            <img src="resources/img/_EscudoSanidad.png" alt="">
-            <img src="resources/img/_EscudoPNP.png" alt="">
+            <!-- <img src="resources/img/EscudoDIRSAPOL.svg" alt="">
+            <img src="resources/img/EscudoPNP.svg" alt=""> -->
+            <img src="resources/img/_EscudoSanidad.png" alt="Escudo sanidad">
+            <img src="resources/img/_EscudoPNP.png" alt="Escudo PNP">
         </div>
         <div class="circle-load"></div>
         <p>Cargando...</p>
@@ -60,5 +62,4 @@
 <script language="javascript" src="resources/js/jquery-3.6.0.min.js"></script>
 <script language="javascript" src="resources/js/jquery-ui-1.13.1/jquery-ui.min.js"></script>
 <script language="javascript" src="resources/js/functions.js"></script>
-
 </html>
