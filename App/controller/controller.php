@@ -16,29 +16,14 @@ function controller($accion)
             $listadoUnidades = $listadoUnidades->fetchAll(PDO::FETCH_OBJ);
             echo json_encode($listadoUnidades);
             break;
-        case 'LISTAR_TARIFARIO':
-            $nvl = $_POST['nvlipress'];
-            $procedimientos = $objProcedimiento->FiltrarTarifario("nvl$nvl");
-            $procedimientos = $procedimientos->fetchAll(PDO::FETCH_OBJ);
-            $tabla = '';
-            $id = 1;
-            foreach ($procedimientos as $procedimiento) {
-                $tabla .= '<tr>';
-                $tabla .= '<td>' . $id . '</td>';
-                $tabla .= '<td>' . $procedimiento->codigocpt . '</td>';
-                $tabla .= '<td>' . $procedimiento->descripcion . '</td>';
-                $tabla .= '<td>' . $procedimiento->precio . '</td>';
-                $tabla .= '</tr>';
-                $id++;
-            }
-            echo $tabla;
-            break;
-        case 'FILTRAR_PROCEDIMIENTO':
+        case 'LISTAR_PROCEDIMIENTOS':
             $nvl = $_POST['nvlipress'];
             $filtro = $_POST['filtro'];
-            $procedimientos = $objProcedimiento->FiltrarProcedimiento($filtro, "nvl$nvl");
+            if ($filtro == "")
+                $procedimientos = $objProcedimiento->FiltrarTarifario("nvl$nvl");
+            else
+                $procedimientos = $objProcedimiento->FiltrarProcedimiento($filtro, "nvl$nvl");
             $procedimientos = $procedimientos->fetchAll(PDO::FETCH_OBJ);
-
             $tabla = '';
             $id = 1;
             foreach ($procedimientos as $procedimiento) {
