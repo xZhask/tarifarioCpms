@@ -5,6 +5,8 @@ window.addEventListener("load", () => {
 });
 const listadoUnidades = JSON.parse(ajaxFunction({ accion: "LISTAR_UNIDADES" }));
 const nombreUnidades = listadoUnidades.map((unidad) => unidad.ipress);
+const txtProcedimiento = document.querySelector("#procedimiento");
+txtProcedimiento.addEventListener("keyup", () => FiltrarProcedimientos());
 let nivel = "";
 function ajaxFunction(data) {
   let resultado;
@@ -29,12 +31,12 @@ $(document).ready(function () {
       let unidad = item.item.value;
       let position = nombreUnidades.indexOf(unidad);
       nivel = listadoUnidades[position].nivel;
-      $("#procedimiento").val("");
-      let rptaAjax = ajaxFunction({
-        accion: "LISTAR_PROCEDIMIENTOS",
+      txtProcedimiento.value = "";
+      let data = {
+        accion: `LISTAR_PROCEDIMIENTOS`,
         nvlipress: nivel,
-        filtro: "",
-      });
+      };
+      let rptaAjax = ajaxFunction(data);
       $("#tbcpt").html(rptaAjax);
       $(".bg-dark").css("display", "none");
       document.getElementById("ipress").blur();
@@ -45,15 +47,13 @@ $(document).ready(function () {
     },
   });
 });
-const txtProcedimiento = document.querySelector("#procedimiento");
-txtProcedimiento.addEventListener("keyup", FiltrarProcedimientos);
 
 function FiltrarProcedimientos() {
   let filtro = $("#procedimiento").val();
   let data = {
-    accion: "LISTAR_PROCEDIMIENTOS",
-    filtro: filtro,
+    accion: `FILTRAR_PROCEDIMIENTOS`,
     nvlipress: nivel,
+    filtro: filtro,
   };
   let rptaAjax = ajaxFunction(data);
   $("#tbcpt").html(rptaAjax);

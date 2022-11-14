@@ -18,24 +18,30 @@ function controller($accion)
             break;
         case 'LISTAR_PROCEDIMIENTOS':
             $nvl = $_POST['nvlipress'];
+            $procedimientos = $objProcedimiento->FiltrarTarifario("nvl$nvl");
+            echo (armarTabla($procedimientos));
+            break;
+        case 'FILTRAR_PROCEDIMIENTOS':
+            $nvl = $_POST['nvlipress'];
             $filtro = $_POST['filtro'];
-            if ($filtro == "")
-                $procedimientos = $objProcedimiento->FiltrarTarifario("nvl$nvl");
-            else
-                $procedimientos = $objProcedimiento->FiltrarProcedimiento($filtro, "nvl$nvl");
-            $procedimientos = $procedimientos->fetchAll(PDO::FETCH_OBJ);
-            $tabla = '';
-            $id = 1;
-            foreach ($procedimientos as $procedimiento) {
-                $tabla .= '<tr>';
-                $tabla .= '<td>' . $id . '</td>';
-                $tabla .= '<td>' . $procedimiento->codigocpt . '</td>';
-                $tabla .= '<td>' . $procedimiento->descripcion . '</td>';
-                $tabla .= '<td>' . $procedimiento->precio . '</td>';
-                $tabla .= '</tr>';
-                $id++;
-            }
-            echo $tabla;
+            $procedimientos = $objProcedimiento->FiltrarProcedimiento($filtro, "nvl$nvl");
+            echo (armarTabla($procedimientos));
             break;
     }
+}
+function armarTabla($listado)
+{
+    $procedimientos = $listado->fetchAll(PDO::FETCH_OBJ);
+    $tabla = '';
+    $id = 1;
+    foreach ($procedimientos as $procedimiento) {
+        $tabla .= '<tr>';
+        $tabla .= '<td>' . $id . '</td>';
+        $tabla .= '<td>' . $procedimiento->codigocpt . '</td>';
+        $tabla .= '<td>' . $procedimiento->descripcion . '</td>';
+        $tabla .= '<td>' . $procedimiento->precio . '</td>';
+        $tabla .= '</tr>';
+        $id++;
+    }
+    return $tabla;
 }
